@@ -26,7 +26,7 @@ var mailListener = new MailListener({
   debug: console.log, // Or your custom function with only one incoming argument. Default: null
   tlsOptions: { rejectUnauthorized: false },
   mailbox: "INBOX", // mailbox to monitor
-  markSeen: false, // all fetched email willbe marked as seen and not fetched next time
+  markSeen: true, // all fetched email willbe marked as seen and not fetched next time
   attachments: false,
 });
 
@@ -45,7 +45,8 @@ mailListener.on("error", function (err) {
 
 mailListener.on("mail", async function (mail, seqno, attributes) {
   let newMessage = "";
-  if (mail.from[0].address == conf.email && mail.subject == conf.catchSubject) {
+  console.log("incoming email subject", mail.subject, " matches config subject:", conf.catchSubject)
+  if (mail.from[0].address == conf.email && mail.subject === conf.catchSubject) {
     console.log("mail:", mail)
     mail.html = mail.html.replace(/<br\/>/g, '')
     console.log("***mail.html with linebreaks replaced***", mail.html)

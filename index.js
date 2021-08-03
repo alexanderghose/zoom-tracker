@@ -59,8 +59,9 @@ mailListener.on("mail", async function (mail, seqno, attributes) {
       try {
         let sheet = await sheetsConnect();
         let password = parsedMessage[0][8];
+        let newPassword = cleanPassword(password);
         let url = parsedMessage[0][3];
-        await updateRow(sheet, password, url);
+        await updateRow(sheet, newPassword, url);
       } catch (err) {
         console.log(err);
       }
@@ -70,6 +71,17 @@ mailListener.on("mail", async function (mail, seqno, attributes) {
     }
   }
 });
+
+function cleanPassword(password) {
+   // fix some bugs with passwords not showing up
+   //    1. if password starts with =, put in a '
+   if (password[0] === '=') {
+      password = "'" + password;
+   }
+   //    2. if password contains an & it appears here as an &amp;
+   password = password.replace("&amp;","&");
+   return password;
+}
 
 /* rows = total rows in cell selection
   column = column id to check for empty val

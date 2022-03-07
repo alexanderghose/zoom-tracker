@@ -10,7 +10,7 @@ const creds = require("./config/zoom-recording-tracker-6a8bd724ca99.json");
 
 /* DIRTY REGEX FOR PULLING THE URL AND PASSWORD */
 //const regex = /(?<=share this recording with viewers\:\n[<]a href=["])(.*)|(?<=Passcode\:\n)(.*)/g;
-const regex = /share this recording with viewers((.|\n)*)">((.|\n)*)(<\/a>)((.|\n)*)Passcode: (.*)/g;
+const regex = /share with others((.|\n)*)">((.|\n)*)(<\/a>)((.|\n)*)Passcode: (.*)/g;
 /* ----------------------------- */
 // readXML.loadDoc();
 
@@ -49,7 +49,7 @@ mailListener.on("mail", async function (mail, seqno, attributes) {
   if (mail.from[0].address == conf.email && mail.subject === conf.catchSubject) {
     console.log("mail:", mail)
     mail.html = mail.html.replace(/<br\/>/g, '')
-    console.log("***mail.html with linebreaks replaced***", mail.html)
+    console.log("***mail.html***", mail.html)
     // matchAll gives you regex groups, and then we convert to array:q
     let parsedMessage = mail.html.matchAll(regex);
     console.log("parsed message:", JSON.stringify(parsedMessage))
@@ -73,6 +73,8 @@ mailListener.on("mail", async function (mail, seqno, attributes) {
 });
 
 function cleanPassword(password) {
+   // sometimes our terrible regex gets a password like "1234</span>" and it's much easier to hack it here than to fix the regex!
+   password = password.replace("</span>", "")
    // fix some bugs with passwords not showing up
    //    1. if password starts with =, put in a '
    if (password[0] === '=') {
@@ -127,4 +129,3 @@ Date.prototype.getDateForHTML = function () {
     .toString()
     .padStart(2, "0")}/${this.getDate().toString().padStart(2, "0")}`;
 };
-

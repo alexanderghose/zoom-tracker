@@ -7,7 +7,7 @@
 
 # HOW TO RUN SCRIPT ON THE COMMAND LINE
 
-node index.js
+node zoom-recording-upload-bot.js
 
 
 # HOW TO RUN SCRIPT AS A SERVICE / DAEMON (ie., run it once and forget about it):
@@ -25,7 +25,7 @@ PART 1 - config/ folder has 3 cnfig files:
 3 - conf.json - the main config file. Most of them might be self-explanatory but:
 	-the zoom "from" email i've always left as is
 	-the subject should be updated to match. Before the cohort starts i'll go in and create the room, record a sec, then shut down the room a few times until i see the recordings show up on the sheet.
-	-the gmail password can be the actual gmail password or you can create an "app password" which might require you to enable 2FA on your gmail account. i usually go the "app password" route
+	-the gmail password can be the actual gmail password or you can create an "app password" which might require you to enable 2FA on your gmail account -- steps are go to myaccount.google.com, click "security" in the left sidebar, then enable 2-step verification, then click "app passwords" and generate one. i usually go the "app password" route
 	-the host and port i've never touched
 	-the sheet id is from the google sheets URL
 	-the urlCol specifies which column the url should be written into

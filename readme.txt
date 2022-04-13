@@ -12,7 +12,7 @@ node zoom-recording-upload-bot.js
 
 # HOW TO RUN SCRIPT AS A SERVICE / DAEMON (ie., run it once and forget about it):
 
-1. PM2 on a linux machine - When I had this running previously, I had put it on a linux server and I had basically just done "pm2 start index.js" to start it, and it ran forever. pm2 help had a list of nice features as well like logs. Not sure if pm2 runs on windows, never tried.
+1. PM2 (mac/linux)on a linux machine - install pm2 globally, and then just do "pm2 start <name of js file>.js" to start it, and it will run forever. other useful commands: "pm2 list" lists all pm2-managed processes. "pm2 stop 0" will stop process #0. "pm2 help" had a list of other commands. There are lots of other nice features as well like logs that automatically roll back. Not sure if pm2 runs on windows, never tried.
 2. https://github.com/coreybutler/node-windows (used this once a few years ago)
 
 

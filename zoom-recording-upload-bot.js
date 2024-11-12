@@ -90,7 +90,7 @@ function cleanPassword(password) {
   start = header column position (i.e. "URL" )
 */
 function firstEmptyRow(sheet) {
-  for (let i = 5; i < sheet.gridProperties.rowCount; i++) {
+  for (let i = 61; i < sheet.gridProperties.rowCount; i++) {
     let thisCell = sheet.getCell(i, sheetParams.urlCol);
     if (thisCell.value === null) {
       return i;
@@ -102,7 +102,7 @@ function firstEmptyRow(sheet) {
 */
 async function updateRow(sheet, password, url, topic="UPDATE TOPIC") {
   try {
-    await sheet.loadCells("A:D");
+    await sheet.loadCells("A:F");
     let newRow = firstEmptyRow(sheet);
     sheet.getCell(newRow, sheetParams.dateCol).value = new Date().getDateForHTML();
     sheet.getCell(newRow, 1).value = require('./config/topic.json').TOPIC;
